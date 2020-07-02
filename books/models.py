@@ -13,7 +13,7 @@ class Book(models.Model):
         return self.title
 
 class Comment(models.Model):
-    comment = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
+    comment = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments', null=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(blank=True)
     body = models.TextField(max_length=1500)
