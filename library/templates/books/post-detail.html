@@ -38,17 +38,23 @@
     </div>
     <div class="col-md-8">
         <div class="card-body">
-        {% if new_comment %}
-        <div class="alert alert-success" role="alert">
-            Your comment is awaiting moderation
-        </div>
+        {% if user.is_authenticated %}
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+                Your comment is awaiting moderation
+            </div>
+            {% else %}
+            <h3>Leave a comment</h3>
+            <form method="post" style="margin-top: 1.3em;">
+                {{ comment_form|crispy }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </form>
+            {% endif %}
         {% else %}
-        <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
-            {{ comment_form|crispy }}
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-        </form>
+            <div class="alert alert-warning" role="alert">
+                Login or Signup to add a comment!
+            </div>
         {% endif %}
         </div>
     </div>
